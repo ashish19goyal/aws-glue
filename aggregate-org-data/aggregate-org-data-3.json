@@ -1,0 +1,39 @@
+{
+  "name" : "aggregate-org-data-3",
+  "description" : "Agggregate number of empoyees by country",
+  "role" : "arn:aws:iam::626786426883:role/service-role/AWSGlueServiceRole",
+  "executionProperty" : {
+    "maxConcurrentRuns" : 1
+  },
+  "command" : {
+    "name" : "glueetl",
+    "scriptLocation" : "s3://aws-glue-assets-626786426883-us-east-1/scripts/aggregate-org-data-copy.py",
+    "pythonVersion" : "3"
+  },
+  "defaultArguments" : {
+    "--enable-metrics" : "true",
+    "--enable-spark-ui" : "true",
+    "--spark-event-logs-path" : "s3://aws-glue-assets-626786426883-us-east-1/sparkHistoryLogs/",
+    "--enable-job-insights" : "true",
+    "--enable-glue-datacatalog" : "true",
+    "--enable-continuous-cloudwatch-log" : "true",
+    "--job-bookmark-option" : "job-bookmark-disable",
+    "--job-language" : "python",
+    "--TempDir" : "s3://aws-glue-assets-626786426883-us-east-1/temporary/"
+  },
+  "maxRetries" : 0,
+  "allocatedCapacity" : 4,
+  "timeout" : 2880,
+  "maxCapacity" : 4.0,
+  "glueVersion" : "3.0",
+  "numberOfWorkers" : 4,
+  "workerType" : "G.1X",
+  "executionClass" : "STANDARD",
+  "codeGenConfigurationNodes" : "{\"node-1\":{\"S3CsvSource\":{\"AdditionalOptions\":{\"EnableSamplePath\":false,\"SamplePath\":\"s3://data-integration-demo-ashish/org.csv\"},\"Escaper\":\"\",\"Exclusions\":[],\"Name\":\"S3 bucket\",\"OptimizePerformance\":false,\"OutputSchemas\":[{\"Columns\":[{\"GlueStudioType\":\"date\",\"Name\":\"Index\",\"Type\":\"string\"},{\"GlueStudioType\":\"date\",\"Name\":\"Organization Id\",\"Type\":\"string\"},{\"GlueStudioType\":\"date\",\"Name\":\"Name\",\"Type\":\"string\"},{\"GlueStudioType\":\"date\",\"Name\":\"Website\",\"Type\":\"string\"},{\"GlueStudioType\":\"date\",\"Name\":\"Country\",\"Type\":\"string\"},{\"GlueStudioType\":\"date\",\"Name\":\"Description\",\"Type\":\"string\"},{\"GlueStudioType\":\"date\",\"Name\":\"Founded\",\"Type\":\"string\"},{\"GlueStudioType\":\"date\",\"Name\":\"Industry\",\"Type\":\"string\"},{\"GlueStudioType\":\"date\",\"Name\":\"Number of employees\",\"Type\":\"string\"}]}],\"Paths\":[\"s3://data-integration-demo-ashish/org.csv\"],\"QuoteChar\":\"quote\",\"Separator\":\"comma\",\"WithHeader\":true}},\"node-2\":{\"Aggregate\":{\"Aggs\":[{\"AggFunc\":\"sum\",\"Column\":[\"Number of employees\"]}],\"Groups\":[[\"Country\"]],\"Inputs\":[\"node-1\"],\"Name\":\"ApplyMapping\"}},\"node-3\":{\"S3DirectTarget\":{\"Compression\":\"none\",\"Format\":\"json\",\"Inputs\":[\"node-2\"],\"Name\":\"S3 bucket\",\"PartitionKeys\":[],\"Path\":\"s3://data-integration-demo-ashish/\",\"SchemaChangePolicy\":{\"EnableUpdateCatalog\":false}}}}",
+  "sourceControlDetails" : {
+    "provider" : "GITHUB",
+    "repository" : "aws-glue",
+    "branch" : "demo1",
+    "folder" : "aggregate-org-data"
+  }
+}
