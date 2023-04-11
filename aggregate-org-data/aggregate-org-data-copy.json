@@ -26,7 +26,7 @@
   "timeout" : 2880,
   "maxCapacity" : 4.0,
   "glueVersion" : "3.0",
-  "numberOfWorkers" : 4,
+  "numberOfWorkers" : 2,
   "workerType" : "G.1X",
   "executionClass" : "STANDARD",
   "codeGenConfigurationNodes" : "{\"node-1\":{\"S3CsvSource\":{\"AdditionalOptions\":{\"EnableSamplePath\":false,\"SamplePath\":\"s3://data-integration-demo-ashish/org.csv\"},\"Escaper\":\"\",\"Exclusions\":[],\"Name\":\"S3 bucket\",\"OptimizePerformance\":false,\"OutputSchemas\":[{\"Columns\":[{\"GlueStudioType\":\"date\",\"Name\":\"Index\",\"Type\":\"string\"},{\"GlueStudioType\":\"date\",\"Name\":\"Organization Id\",\"Type\":\"string\"},{\"GlueStudioType\":\"date\",\"Name\":\"Name\",\"Type\":\"string\"},{\"GlueStudioType\":\"date\",\"Name\":\"Website\",\"Type\":\"string\"},{\"GlueStudioType\":\"date\",\"Name\":\"Country\",\"Type\":\"string\"},{\"GlueStudioType\":\"date\",\"Name\":\"Description\",\"Type\":\"string\"},{\"GlueStudioType\":\"date\",\"Name\":\"Founded\",\"Type\":\"string\"},{\"GlueStudioType\":\"date\",\"Name\":\"Industry\",\"Type\":\"string\"},{\"GlueStudioType\":\"date\",\"Name\":\"Number of employees\",\"Type\":\"string\"}]}],\"Paths\":[\"s3://data-integration-demo-ashish/org.csv\"],\"QuoteChar\":\"quote\",\"Separator\":\"comma\",\"WithHeader\":true}},\"node-2\":{\"Aggregate\":{\"Aggs\":[{\"AggFunc\":\"sum\",\"Column\":[\"Number of employees\"]}],\"Groups\":[[\"Country\"]],\"Inputs\":[\"node-1\"],\"Name\":\"ApplyMapping\"}},\"node-3\":{\"S3DirectTarget\":{\"Compression\":\"none\",\"Format\":\"json\",\"Inputs\":[\"node-2\"],\"Name\":\"S3 bucket\",\"PartitionKeys\":[],\"Path\":\"s3://data-integration-demo-ashish/\",\"SchemaChangePolicy\":{\"EnableUpdateCatalog\":false}}}}",
