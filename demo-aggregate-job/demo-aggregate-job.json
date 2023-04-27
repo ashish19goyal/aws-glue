@@ -10,6 +10,7 @@
     "scriptLocation" : "s3://aws-glue-assets-626786426883-us-east-1/scripts/demo-aggregate-job.py",
     "pythonVersion" : "3"
   },
+  {},
   "defaultArguments" : {
     "--enable-metrics" : "true",
     "--enable-spark-ui" : "true",
